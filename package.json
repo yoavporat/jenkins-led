@@ -1,0 +1,64 @@
+{
+    "name": "jenkins-led",
+    "displayName": "jenkins-led",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "yoavporat",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.start",
+        "onCommand:extension.stop"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.start",
+                "title": "Start Led",
+                "category": "Jenkins"
+            },
+            {
+                "command": "extension.stop",
+                "title": "Stop Led",
+                "category": "Jenkins"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Jenkins Led Configuration",
+            "properties": {
+                "jenkinsLed.branch": {
+                    "type": "string",
+                    "default": "trunk",
+                    "description": "branch name to track"
+                },
+                "jenkinsLed.refreshRate": {
+                    "type": "number",
+                    "default": 300000,
+                    "description": "refresh rate in milliseconds"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "eslint": "^4.11.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "node-notifier": "^5.2.1",
+        "opn": "^5.3.0",
+        "unirest": "^0.5.1"
+    }
+}
