@@ -11,19 +11,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.start",
-        "onCommand:extension.stop"
+        "onCommand:jenkinsLed.start",
+        "onCommand:jenkinsLed.stop"
     ],
     "main": "./extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.start",
+                "command": "jenkinsLed.start",
                 "title": "Start Led",
                 "category": "Jenkins"
             },
             {
-                "command": "extension.stop",
+                "command": "jenkinsLed.stop",
                 "title": "Stop Led",
                 "category": "Jenkins"
             }

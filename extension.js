@@ -11,11 +11,11 @@ let config;
 function activate(context) {
     statusBarElement = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
 
-    let goToBranchDisposable = vscode.commands.registerCommand('extension.goToBranch', () => {
+    let goToBranchDisposable = vscode.commands.registerCommand('jenkinsLed.goToBranch', () => {
         opn(goToUrl);
     });
 
-    let startDisposable = vscode.commands.registerCommand('extension.start', function () {
+    let startDisposable = vscode.commands.registerCommand('jenkinsLed.start', function () {
         config = getConfiguration();
         
         if (intervalHandler) {
@@ -32,7 +32,7 @@ function activate(context) {
         statusBarElement.show();
     });
 
-    let stopDisposable = vscode.commands.registerCommand('extension.stop', function () {
+    let stopDisposable = vscode.commands.registerCommand('jenkinsLed.stop', function () {
         statusBarElement.dispose();
         if (intervalHandler) {
             clearInterval(intervalHandler);
@@ -40,6 +40,7 @@ function activate(context) {
     });
 
     context.subscriptions.push(startDisposable, stopDisposable, goToBranchDisposable);
+    console.log('jenkins led is active');
 }
 
 function getConfiguration() {
@@ -50,7 +51,6 @@ function getConfiguration() {
 }
 
 function updateStatusBar(response) {
-    console.log(response);
     let color = response.body.color;
     let text = '$(primitive-dot)';
     let tooltip = color;
@@ -82,12 +82,11 @@ function updateStatusBar(response) {
     statusBarElement.color = color;
     statusBarElement.text = text;
     statusBarElement.tooltip = `Jenkins\n${response.body.displayName} #${response.body.nextBuildNumber}: ${tooltip}`;
-    statusBarElement.command = 'extension.goToBranch';
+    statusBarElement.command = 'jenkinsLed.goToBranch';
 }
 
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate() {
 }
 
